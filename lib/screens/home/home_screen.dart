@@ -549,7 +549,8 @@ class _TodoListState extends State<TodoList> {
                 style: ElevatedButton.styleFrom(
                   iconColor: Colors.blue, // Button color
                   backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(vertical: 15), // Button padding
+                  padding: EdgeInsets.symmetric(
+                      vertical: 15, horizontal: 5), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded corners
                   ),
