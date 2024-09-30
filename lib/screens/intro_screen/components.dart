@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/colors.dart';
 import '../home/home_screen.dart';
+import '../intro_screen/Login.dart';
 
 class GetStartBtn extends StatefulWidget {
   const GetStartBtn({
@@ -23,7 +24,7 @@ class _GetStartBtnState extends State<GetStartBtn> {
       Future.delayed(const Duration(seconds: 2)).then((value) {
         isLoading = false;
         Navigator.pushReplacement(
-            context, CupertinoPageRoute(builder: (_) => HomeScreen()));
+            context, CupertinoPageRoute(builder: (_) => LoginPage()));
       });
     });
   }
