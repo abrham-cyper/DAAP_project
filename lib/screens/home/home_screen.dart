@@ -388,6 +388,20 @@ class _ExpensePageState extends State<ExpensePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 35,
+          ),
+          onPressed: () {
+            // Navigate to the new page when the button is pressed
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Menu()),
+            );
+          },
+        ),
         title: Text(
           'DAAP Finance Tracker',
           style: TextStyle(color: Colors.white),
@@ -610,4 +624,122 @@ class TodoItem {
   double amount;
 
   TodoItem({required this.description, required this.amount});
+}
+
+class Menu extends StatefulWidget {
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'DAAP Finance Settings',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+      ),
+      body: ListView(
+        children: [
+          // Profile Avatar and Name Section
+          Container(
+            color: Colors.blueAccent,
+            padding: EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: AssetImage(
+                      'assets/profile.jpg'), // Replace with your image asset or NetworkImage
+                  backgroundColor: Colors.white,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Abrham Assefa',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'abrhamassefa759@gmail.com', // Optional: Email or other details
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Settings List Options
+          ListTile(
+            leading: Icon(Icons.person, color: Colors.blue),
+            title: Text('Profile Settings'),
+            subtitle: Text('Edit your profile information'),
+            onTap: () {
+              // Navigate to profile settings page or show a dialog
+            },
+          ),
+          Divider(),
+
+          ListTile(
+            leading: Icon(Icons.notifications, color: Colors.blue),
+            title: Text('Notification Settings'),
+            subtitle: Text('Manage notification preferences'),
+            onTap: () {
+              // Navigate to notification settings page
+            },
+          ),
+          Divider(),
+
+          ListTile(
+            leading: Icon(Icons.lock, color: Colors.blue),
+            title: Text('Privacy Settings'),
+            subtitle: Text('Adjust privacy settings'),
+            onTap: () {
+              // Navigate to privacy settings page
+            },
+          ),
+          Divider(),
+
+          ListTile(
+            leading: Icon(Icons.info, color: Colors.blue),
+            title: Text('Language'),
+            subtitle: Text('Learn more about the application'),
+            onTap: () {
+              // Navigate to an "About" page or show a dialog
+            },
+          ),
+          Divider(),
+
+          ListTile(
+            leading: Icon(Icons.color_lens, color: Colors.blue),
+            title: Text('Theme'),
+            subtitle: Text('Choose a theme for the application'),
+            onTap: () {
+              // Open theme selection dialog
+            },
+          ),
+          Divider(),
+
+          ListTile(
+            leading: Icon(Icons.info, color: Colors.blue),
+            title: Text('About'),
+            subtitle: Text('Learn more about the application'),
+            onTap: () {
+              // Navigate to an "About" page or show a dialog
+            },
+          ),
+          Divider(),
+        ],
+      ),
+    );
+  }
 }
