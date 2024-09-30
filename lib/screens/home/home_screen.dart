@@ -548,6 +548,7 @@ class _TodoListState extends State<TodoList> {
                 onPressed: _addTodoItem,
                 style: ElevatedButton.styleFrom(
                   iconColor: Colors.blue, // Button color
+                  backgroundColor: Colors.blue,
                   padding: EdgeInsets.symmetric(vertical: 15), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12), // Rounded corners
@@ -555,7 +556,10 @@ class _TodoListState extends State<TodoList> {
                 ),
                 child: Text(
                   'Add Task',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
             ),
