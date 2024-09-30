@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../home/home_screen.dart'; // Make sure to import your HomeScreen
 
 class LoginPage extends StatefulWidget {
@@ -9,25 +11,61 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  String? errorMessage;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String? errorMessage;
 
-  void loginHandler() {
-    String username = usernameController.text;
-    String password = passwordController.text;
+  @override
+  void initState() {
+    super.initState();
+    _checkAndSaveDefaultCredentials();
+  }
 
-    // Basic validation
+  Future<void> _checkAndSaveDefaultCredentials() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedUsername = prefs.getString('username');
+    final storedPassword = prefs.getString('password');
+
+    if (storedUsername == null || storedPassword == null) {
+      await prefs.setString('username', 'admin');
+      await prefs.setString('password', 'admin@321');
+    }
+  }
+
+  Future<void> loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        // Navigate to HomeScreen if login is successful
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => HomeScreen()),
+        );
+      }
+    } catch (error) {
+      setState(() {
+        errorMessage = 'Login failed. Please try again.';
+      });
+    }
+  }
+
+  Future<void> loginWithUsernameAndPassword() async {
+    final username = usernameController.text.trim();
+    final password = passwordController.text.trim();
+
     if (username.isEmpty || password.isEmpty) {
       setState(() {
-        errorMessage = 'Please enter both username and password.';
+        errorMessage = 'Please enter your username and password.';
       });
       return;
     }
 
-    // Simulate a successful login
-    if (username == 'user' && password == 'pass') {
-      // Navigate to HomeScreen if login is successful
+    final prefs = await SharedPreferences.getInstance();
+    final storedUsername = prefs.getString('username');
+    final storedPassword = prefs.getString('password');
+
+    if (username == storedUsername && password == storedPassword) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => HomeScreen()),
@@ -50,26 +88,37 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (errorMessage != null)
+              Text(
+                errorMessage!,
+                style: TextStyle(color: Colors.red),
+              ),
+            const SizedBox(height: 20),
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Username',
-                errorText: errorMessage,
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                errorText: errorMessage,
+                border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: loginHandler,
-              child: const Text('Login'),
+              onPressed: loginWithUsernameAndPassword,
+              child: const Text('Login with Username'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: loginWithGoogle,
+              child: const Text('Login with Google'),
             ),
             const SizedBox(height: 20),
             TextButton(

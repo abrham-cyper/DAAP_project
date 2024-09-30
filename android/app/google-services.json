@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235954719311",
+    "project_id": "finace-track",
+    "storage_bucket": "finace-track.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235954719311:android:1f2e41caa5821b32edb83a",
+        "android_client_info": {
+          "package_name": "com.example.finance_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2JrcpAPIR2EryBVlRSXzxpxYYZK1bXc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,8 @@ import 'bottom_bar.dart';
 import '../income/income_screen.dart';
 import '../expense/expense_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../settings/change_profile.dart';
+import '../intro_screen/Login.dart';
 
 void main() {
   runApp(
@@ -632,6 +634,26 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  String username = '';
+  String? email;
+  String? profileImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'Guest';
+      email =
+          prefs.getString('email') ?? 'example@example.com'; // Default email
+      profileImageUrl = prefs.getString('profileImage');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -653,13 +675,14 @@ class _MenuState extends State<Menu> {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage(
-                      'assets/profile.jpg'), // Replace with your image asset or NetworkImage
+                  backgroundImage: profileImageUrl != null
+                      ? NetworkImage(profileImageUrl!)
+                      : AssetImage('assets/profile.jpg') as ImageProvider,
                   backgroundColor: Colors.white,
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Abrham Assefa',
+                  username,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -668,7 +691,7 @@ class _MenuState extends State<Menu> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'abrhamassefa759@gmail.com', // Optional: Email or other details
+                  email ?? '',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white70,
@@ -684,7 +707,10 @@ class _MenuState extends State<Menu> {
             title: Text('Profile Settings'),
             subtitle: Text('Edit your profile information'),
             onTap: () {
-              // Navigate to profile settings page or show a dialog
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChangeProfile()),
+              );
             },
           ),
           Divider(),
@@ -695,16 +721,6 @@ class _MenuState extends State<Menu> {
             subtitle: Text('Manage notification preferences'),
             onTap: () {
               // Navigate to notification settings page
-            },
-          ),
-          Divider(),
-
-          ListTile(
-            leading: Icon(Icons.lock, color: Colors.blue),
-            title: Text('Privacy Settings'),
-            subtitle: Text('Adjust privacy settings'),
-            onTap: () {
-              // Navigate to privacy settings page
             },
           ),
           Divider(),
@@ -738,6 +754,18 @@ class _MenuState extends State<Menu> {
             },
           ),
           Divider(),
+
+          ListTile(
+            leading: Icon(Icons.lock, color: Colors.blue),
+            title: Text('Logout'),
+            subtitle: Text('Adjust privacy settings'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+          ),
         ],
       ),
     );
