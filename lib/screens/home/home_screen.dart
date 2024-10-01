@@ -7,6 +7,7 @@ import '../expense/expense_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../settings/change_profile.dart';
 import '../intro_screen/Login.dart';
+import '../settings/notification.dart';
 
 void main() {
   runApp(
@@ -720,7 +721,10 @@ class _MenuState extends State<Menu> {
             title: Text('Notification Settings'),
             subtitle: Text('Manage notification preferences'),
             onTap: () {
-              // Navigate to notification settings page
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationSettings()),
+              );
             },
           ),
           Divider(),
