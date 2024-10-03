@@ -1,3 +1,5 @@
+import 'package:finance_tracker/screens/intro_screen/forgetpassowrd.dart';
+import 'package:finance_tracker/screens/intro_screen/regestor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -88,6 +90,16 @@ class _LoginPageState extends State<LoginPage> {
         errorMessage = 'Invalid username or password.';
       });
     }
+  }
+
+  Future<void> Regestor() async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => HomeScreen()));
+  }
+
+  Future<void> forgetpassword() async {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (_) => ForgotPasswordPage()));
   }
 
   @override
@@ -193,9 +205,16 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              onPressed: loginWithGoogle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) =>
+                                          RegisterPage()), // Correctly navigate to RegisterPage
+                                );
+                              },
                               child: const Text(
-                                'Login with Google',
+                                'Register', // Fixed typo: 'Regestore' to 'Register'
                                 style: TextStyle(color: Colors.white60),
                               ),
                             ),
@@ -209,7 +228,16 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 );
                               },
-                              child: const Text('Forgot Password?'),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => ForgotPasswordPage()),
+                                  );
+                                },
+                                child: const Text('Forgot Password?'),
+                              ),
                             ),
                           ],
                         ),
