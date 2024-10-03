@@ -13,27 +13,25 @@ class _IntoScreenState extends State<IntoScreen> {
   void initState() {
     super.initState();
     // Navigate to the login page after a delay
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                LoginPage()), // Adjust to your actual Login page class
+          builder: (context) =>
+              LoginPage(), // Adjust to your actual Login page class
+        ),
       );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Hello Ab...',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/background.gif'), // Background image
+            fit: BoxFit.cover, // Cover the entire container
           ),
         ),
       ),

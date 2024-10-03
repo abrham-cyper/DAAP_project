@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
         });
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) =>  HomeScreen()),
+          MaterialPageRoute(builder: (_) => HomeScreen()),
         );
       }
     } catch (error) {
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) =>  HomeScreen()),
+        MaterialPageRoute(builder: (_) => HomeScreen()),
       );
     } else {
       setState(() {
@@ -93,107 +93,135 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     if (authenticated) {
-      return  HomeScreen(); // Redirect to home screen if authenticated
+      return HomeScreen(); // Redirect to home screen if authenticated
     } else {
       return Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue, Colors.purple],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+          body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/1.png'), // Update the path as necessary
+            fit: BoxFit.cover, // This makes the image cover the whole container
           ),
-          child: Padding(
-
-            padding: const EdgeInsets.all(32.0),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (errorMessage != null)
-                          Text(
-                            errorMessage!,
-                            style: const TextStyle(color: Colors.red),
-                          ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: usernameController,
-                          decoration: InputDecoration(
-                            labelText: 'Username',
-                            border: OutlineInputBorder(),
-                            prefixIcon: const Icon(Icons.person),
-                          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                      height: 370), // Adjust this value to push down further
+                  Container(
+                    width: 280, // Fixed width for the card
+                    height: 350, // Fixed height for the card
+                    child: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // Rounded corners
+                      ),
+                      color: Colors.white.withOpacity(0.8), // Transparent card
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 5.0, // Consistent vertical padding
+                          horizontal: 15.0,
                         ),
-                        const SizedBox(height: 20),
-                        TextField(
-                          controller: passwordController,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            border: OutlineInputBorder(),
-                            prefixIcon: const Icon(Icons.lock),
-                          ),
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-
-                            minimumSize: const Size(double.infinity, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          onPressed: loginWithUsernameAndPassword,
-                          child: const Text('Login',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            minimumSize: const Size(double.infinity, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          onPressed: loginWithGoogle,
-                          child: const Text('Login with Google',
-                          style: TextStyle(
-                            color: Colors.white
-                          ),),
-                        ),
-                        const SizedBox(height: 20),
-                        TextButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Forgot Password functionality not implemented.'),
+                        child: Column(
+                          children: [
+                            if (errorMessage != null)
+                              Text(
+                                errorMessage!,
+                                style: const TextStyle(color: Colors.red),
                               ),
-                            );
-                          },
-                          child: const Text('Forgot Password?'),
+                            const SizedBox(height: 10),
+                            TextField(
+                              controller: usernameController,
+                              decoration: InputDecoration(
+                                labelText: 'Username',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      10), // Rounded borders
+                                  borderSide: BorderSide.none, // No border
+                                ),
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(
+                                    0.5), // Slightly transparent background
+                                prefixIcon: const Icon(Icons.person),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextField(
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      10), // Rounded borders
+                                  borderSide: BorderSide.none, // No border
+                                ),
+                                filled: true,
+                                fillColor: Colors.white.withOpacity(
+                                    0.5), // Slightly transparent background
+                                prefixIcon: const Icon(Icons.lock),
+                              ),
+                              obscureText: true,
+                            ),
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                minimumSize:
+                                    const Size(120, 40), // Smaller button size
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: loginWithUsernameAndPassword,
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(color: Colors.white60),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent,
+                                minimumSize:
+                                    const Size(120, 40), // Smaller button size
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: loginWithGoogle,
+                              child: const Text(
+                                'Login with Google',
+                                style: TextStyle(color: Colors.white60),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextButton(
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        'Forgot Password functionality not implemented.'),
+                                  ),
+                                );
+                              },
+                              child: const Text('Forgot Password?'),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
         ),
-      );
+      ));
     }
   }
 }
