@@ -1,3 +1,4 @@
+import 'package:finance_tracker/screens/settings/About.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/finance_provider.dart';
@@ -750,13 +751,15 @@ class _MenuState extends State<Menu> {
           Divider(),
 
           ListTile(
-            leading: Icon(Icons.info, color: Colors.blue),
-            title: Text('About'),
-            subtitle: Text('Learn more about the application'),
-            onTap: () {
-              // Navigate to an "About" page or show a dialog
-            },
-          ),
+              leading: Icon(Icons.info, color: Colors.blue),
+              title: Text('About'),
+              subtitle: Text('Learn more about the application'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),
+                );
+              }),
           Divider(),
 
           ListTile(
